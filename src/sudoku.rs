@@ -16,7 +16,7 @@ impl Sudoku {
         }
     }
 
-    pub fn parse_state(initial_state: &str) -> Self {
+    pub fn from_string(initial_state: &str) -> Self {
         let mut s = Self::empty_state();
 
         for (i, c) in initial_state.chars().enumerate() {
@@ -88,7 +88,7 @@ impl Sudoku {
     }
 
     fn is_row_valid(&self, row: usize, n: u32) -> bool {
-        let in_row = self.grid[row].iter().filter(|&&x| x == n).count();
+        let in_row = self.grid[row].iter().filter(|&x| *x == n).count();
         in_row == 1
     }
 
@@ -121,7 +121,7 @@ impl Sudoku {
         block[7] = self.grid[b_row_index + 2][b_col_index + 1];
         block[8] = self.grid[b_row_index + 2][b_col_index + 2];
 
-        let in_block = block.iter().filter(|&&x| x == n).count();
+        let in_block = block.iter().filter(|&x| *x == n).count();
 
         in_block == 1
     }

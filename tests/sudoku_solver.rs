@@ -23,7 +23,7 @@ fn can_solve() {
     ];
 
     for (p, s) in tests {
-        let mut sudoku = Sudoku::parse_state(p);
+        let mut sudoku = Sudoku::from_string(p);
 
         let solved = Solver::solve(&mut sudoku);
         assert!(solved);
