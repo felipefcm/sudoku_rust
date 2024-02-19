@@ -81,20 +81,7 @@ impl Sudoku {
         let b_row_index = row / N as usize * N as usize;
         let b_col_index = col / N as usize * N as usize;
 
-        let mut block = [0u32; N2 as usize];
-
-        block[0] = self.grid.get_at_pos((b_row_index, b_col_index));
-        block[1] = self.grid.get_at_pos((b_row_index, b_col_index + 1));
-        block[2] = self.grid.get_at_pos((b_row_index, b_col_index + 2));
-
-        block[3] = self.grid.get_at_pos((b_row_index + 1, b_col_index));
-        block[4] = self.grid.get_at_pos((b_row_index + 1, b_col_index + 1));
-        block[5] = self.grid.get_at_pos((b_row_index + 1, b_col_index + 2));
-
-        block[6] = self.grid.get_at_pos((b_row_index + 2, b_col_index));
-        block[7] = self.grid.get_at_pos((b_row_index + 2, b_col_index + 1));
-        block[8] = self.grid.get_at_pos((b_row_index + 2, b_col_index + 2));
-
+        let block = self.grid.get_block(b_row_index, b_col_index);
         let in_block = block.iter().filter(|&x| *x == n).count();
 
         in_block == 1
