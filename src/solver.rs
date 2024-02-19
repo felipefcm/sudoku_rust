@@ -1,3 +1,4 @@
+use crate::sudoku::grid::Grid;
 use crate::sudoku::Sudoku;
 
 struct Node {
@@ -23,7 +24,7 @@ impl Solver {
     }
 
     fn bypass_fixed(&self, node: Node, state: &mut Sudoku) -> bool {
-        if Sudoku::is_last_cell(node.index) {
+        if Grid::is_last_cell(node.index) {
             return true;
         }
 
@@ -35,16 +36,16 @@ impl Solver {
     }
 
     fn make_attempts(&self, node: Node, state: &mut Sudoku) -> bool {
-        let n = state.get_at_index(node.index);
+        let n = state.grid.get_at_index(node.index);
 
         for i in n + 1..=9 {
-            state.set_at_index(node.index, i);
+            state.grid.set_at_index(node.index, i);
 
             if !state.is_valid(node.index) {
                 continue;
             }
 
-            if Sudoku::is_last_cell(node.index) {
+            if Grid::is_last_cell(node.index) {
                 return true;
             }
 
@@ -57,7 +58,7 @@ impl Solver {
             };
         }
 
-        state.set_at_index(node.index, 0);
+        state.grid.set_at_index(node.index, 0);
         return false;
     }
 }
