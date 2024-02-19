@@ -1,13 +1,13 @@
 use super::*;
 
 pub struct Grid {
-    grid: [[u32; N2 as usize]; N2 as usize],
+    grid: [[u32; N2]; N2],
 }
 
 impl Grid {
     pub fn new() -> Self {
         Self {
-            grid: [[EMPTY; N2 as usize]; N2 as usize],
+            grid: [[EMPTY; N2]; N2],
         }
     }
 
@@ -30,8 +30,8 @@ impl Grid {
     }
 
     pub fn index_to_position(index: usize) -> (usize, usize) {
-        let row = index / N2 as usize;
-        let col = index % N2 as usize;
+        let row = index / N2;
+        let col = index % N2;
 
         (row, col)
     }
@@ -40,8 +40,8 @@ impl Grid {
         &self.grid[index]
     }
 
-    pub fn get_col(&self, index: usize) -> [u32; N2 as usize] {
-        let mut col = [0u32; N2 as usize];
+    pub fn get_col(&self, index: usize) -> [u32; N2] {
+        let mut col = [0u32; N2];
 
         for (i, row) in self.grid.iter().enumerate() {
             col[i] = row[index];
@@ -51,11 +51,11 @@ impl Grid {
     }
 
     pub fn is_last_cell(index: usize) -> bool {
-        index == (CELLS - 1) as usize
+        index == CELLS - 1
     }
 
-    pub fn get_block(&self, b_row_index: usize, b_col_index: usize) -> [u32; N2 as usize] {
-        let mut block = [0u32; N2 as usize];
+    pub fn get_block(&self, b_row_index: usize, b_col_index: usize) -> [u32; N2] {
+        let mut block = [0u32; N2];
 
         block[0] = self.get_at_pos((b_row_index, b_col_index));
         block[1] = self.get_at_pos((b_row_index, b_col_index + 1));

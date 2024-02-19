@@ -1,9 +1,9 @@
 pub mod grid;
 use grid::Grid;
 
-const N: u32 = 3;
-const N2: u32 = N * N;
-const CELLS: u32 = N2 * N2;
+const N: usize = 3;
+const N2: usize = N * N;
+const CELLS: usize = N2 * N2;
 const EMPTY: u32 = 0;
 
 pub struct Sudoku {
@@ -35,7 +35,7 @@ impl Sudoku {
     }
 
     pub fn stringify_state(&self) -> String {
-        let mut state_str = String::with_capacity(CELLS as usize);
+        let mut state_str = String::with_capacity(CELLS);
 
         for i in 0..9 {
             for j in 0..9 {
@@ -78,8 +78,8 @@ impl Sudoku {
     }
 
     fn is_block_valid(&self, row: usize, col: usize, n: u32) -> bool {
-        let b_row_index = row / N as usize * N as usize;
-        let b_col_index = col / N as usize * N as usize;
+        let b_row_index = row / N * N;
+        let b_col_index = col / N * N;
 
         let block = self.grid.get_block(b_row_index, b_col_index);
         let in_block = block.iter().filter(|&x| *x == n).count();
