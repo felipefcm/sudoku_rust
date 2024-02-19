@@ -5,7 +5,7 @@ use std::io::BufRead;
 pub fn load_file(path: &str) -> Vec<(String, String)> {
     let mut entries: Vec<(String, String)> = Vec::new();
 
-    let file = fs::File::open(path).expect("Failed to read");
+    let file = fs::File::open(path).expect("Failed to read file");
     let reader = io::BufReader::new(file);
 
     for (i, line) in reader.lines().enumerate() {
