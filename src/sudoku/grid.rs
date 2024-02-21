@@ -47,7 +47,7 @@ impl Grid {
             col[i] = row[index];
         }
 
-        return col; //it will error here!
+        return col;
     }
 
     pub fn is_last_cell(index: usize) -> bool {
@@ -57,17 +57,11 @@ impl Grid {
     pub fn get_block(&self, b_row_index: usize, b_col_index: usize) -> [u32; N2] {
         let mut block = [0u32; N2];
 
-        block[0] = self.get_at_pos((b_row_index, b_col_index));
-        block[1] = self.get_at_pos((b_row_index, b_col_index + 1));
-        block[2] = self.get_at_pos((b_row_index, b_col_index + 2));
-
-        block[3] = self.get_at_pos((b_row_index + 1, b_col_index));
-        block[4] = self.get_at_pos((b_row_index + 1, b_col_index + 1));
-        block[5] = self.get_at_pos((b_row_index + 1, b_col_index + 2));
-
-        block[6] = self.get_at_pos((b_row_index + 2, b_col_index));
-        block[7] = self.get_at_pos((b_row_index + 2, b_col_index + 1));
-        block[8] = self.get_at_pos((b_row_index + 2, b_col_index + 2));
+        for i in 0..3 {
+            for j in 0..3 {
+                block[i * 3 + j] = self.get_at_pos((b_row_index + i, b_col_index + j));
+            }
+        }
 
         return block;
     }
