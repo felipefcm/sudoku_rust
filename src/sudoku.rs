@@ -50,15 +50,10 @@ impl Sudoku {
         let (row, col) = Grid::index_to_position(index);
         let n = self.grid.get_at_index(index);
 
-        if !self.is_row_valid(row, n) {
-            return false;
-        }
-
-        if !self.is_col_valid(col, n) {
-            return false;
-        }
-
-        if !self.is_block_valid(row, col, n) {
+        if !self.is_row_valid(row, n)
+            || !self.is_col_valid(col, n)
+            || !self.is_block_valid(row, col, n)
+        {
             return false;
         }
 
