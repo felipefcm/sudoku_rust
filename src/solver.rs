@@ -6,7 +6,7 @@ pub struct Solver {}
 impl Solver {
     pub fn solve(sudoku: &mut Sudoku) -> bool {
         let solver = Solver {};
-        solver.search(0, sudoku)
+        return solver.search(0, sudoku);
     }
 
     fn search(&self, index: usize, state: &mut Sudoku) -> bool {
