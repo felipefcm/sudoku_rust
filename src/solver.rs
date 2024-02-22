@@ -1,64 +1,50 @@
 use crate::sudoku::grid::Grid;
 use crate::sudoku::Sudoku;
 
-struct Node {
-    index: usize,
-}
-
 pub struct Solver {}
 
 impl Solver {
     pub fn solve(sudoku: &mut Sudoku) -> bool {
         let solver = Solver {};
-        let root_node = Node { index: 0 };
-
-        return solver.search(root_node, sudoku);
+        solver.search(0, sudoku)
     }
 
-    fn search(&self, node: Node, state: &mut Sudoku) -> bool {
-        if state.is_index_fixed(node.index) {
-            return self.bypass_fixed(node, state);
+    fn search(&self, index: usize, state: &mut Sudoku) -> bool {
+        if state.is_index_fixed(index) {
+            return self.bypass_fixed(index, state);
         }
 
-        return self.make_attempts(node, state);
+        return self.make_attempts(index, state);
     }
 
-    fn bypass_fixed(&self, node: Node, state: &mut Sudoku) -> bool {
-        if Grid::is_last_cell(node.index) {
+    fn bypass_fixed(&self, index: usize, state: &mut Sudoku) -> bool {
+        if Grid::is_last_cell(index) {
             return true;
         }
 
-        let next_node = Node {
-            index: node.index + 1,
-        };
-
-        return self.search(next_node, state);
+        return self.search(index + 1, state);
     }
 
-    fn make_attempts(&self, node: Node, state: &mut Sudoku) -> bool {
-        let n = state.grid.get_at_index(node.index);
+    fn make_attempts(&self, index: usize, state: &mut Sudoku) -> bool {
+        let n = state.grid.get_at_index(index);
 
         for i in n + 1..=9 {
-            state.grid.set_at_index(node.index, i);
+            state.grid.set_at_index(index, i);
 
-            if !state.is_valid(node.index) {
+            if !state.is_valid(index) {
                 continue;
             }
 
-            if Grid::is_last_cell(node.index) {
+            if Grid::is_last_cell(index) {
                 return true;
             }
 
-            let next_node = Node {
-                index: node.index + 1,
-            };
-
-            if self.search(next_node, state) {
+            if self.search(index + 1, state) {
                 return true;
             };
         }
 
-        state.grid.set_at_index(node.index, 0);
+        state.grid.set_at_index(index, 0);
         return false;
     }
 }
